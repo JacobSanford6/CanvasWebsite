@@ -1,0 +1,15 @@
+dbSecrets.json
+node_modules
+apiKey.json
+logs
+*.log
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
