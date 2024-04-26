@@ -4,6 +4,5 @@ export default interface User extends RowDataPacket  {
     username?: string,
     age?: number,
     idnodeUser?: number,
-    password?: string,
-    cookie?: string
+    password?: string
 }
