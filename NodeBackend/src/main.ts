@@ -55,16 +55,12 @@ app.post("/login", async (request: Request, response: Response) => {
     if (data && data.username && data.password) {
         await getUserFromCredentials(data.username, data.password).then(res =>{
             success.user = res;
+            response.json(success);
         })
         .catch(err => {
             console.error(err);
-        })
-        
-        if (data.username === "jake" && data.password === "jake") {
-            response.json(success);
-        } else {
             response.json(failure);
-        }
+        })
     } else {
         response.json(failure)
     }
