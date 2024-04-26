@@ -1,7 +1,6 @@
 import express, { Request, RequestParamHandler, Response } from "express";
-import { makeBasicRequest } from "./api/canvasApi";
-import { getUserFromCredentials } from "./repos/loginRepo";
-import User from "./interfaces/User";
+import { makeBasicRequest } from "./api/CanvasApi";
+import { checkCredentials } from "./repos/loginRepo";
 
 const app = express()
 const port = 3000
@@ -16,27 +15,25 @@ app.get('/', (request: Request, response: Response) => {
 })
 
 
-app.post("/canvasRequest",  (request: Request, response: Response) => {
-    const data = request.body;
+app.get("/login", (request: Request, response: Response) => {
 
-    //if (data && data.cookie && data.)
+    console.log(request.body)
+    console.log(request.params)
+
+
+    response.json({ "LOL": "ASDF" })
+    //if ("password" in request.params)
 })
 
-app.post("/login", async (request: Request, response: Response) => {
-    let success: { success: boolean, user?: User } = { "success": true }
+app.post("/login", (request: Request, response: Response) => {
+    
+
+    const success = { "success": true }
     const failure = { "success": false }
     const data = request.body;
 
     if (data && data.username && data.password) {
-        await getUserFromCredentials(data.username, data.password).then(res =>{
-            console.log("res: ")
-            console.log(res);
-            success.user = res;
-        })
-        .catch(err => {
-            console.error(err);
-        })
-        
+        checkCredentials(data.username, data.password);
         if (data.username === "jake" && data.password === "jake") {
             response.json(success);
         } else {
