@@ -1,5 +1,10 @@
 export default interface User {
-    username: string,
-    age: number,
-    id: number,
+    success?: boolean,
+    user: {
+        username?: string,
+        age?: number,
+        idnodeUser?: number,
+        password?: string,
+        cookie?: string
+    }
 }

@@ -10,8 +10,8 @@ export const LoginPage = () => {
 
     const attemptLogin = async () => {
         await tryLogin(username, password).then(res => {
-            if (res) {
-                console.log("yay");
+            if (res.success) {
+                console.log(res);
             } else {
                 console.log("failed");
             }
