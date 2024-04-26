@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '.././index.css'
-import { tryLogin } from '../api/UserServices'
+import { tryCookie, tryLogin } from '../api/UserServices'
+import { useCookies } from 'react-cookie'
 
 export const LoginPage = () => {
     const [username, setUsername] = useState<string>("");
@@ -11,10 +12,19 @@ export const LoginPage = () => {
     const attemptLogin = async () => {
         await tryLogin(username, password).then(res => {
             if (res.success) {
-                console.log(res);
+                if (res.user?.cookie){
+                    const expireDate = new Date()
+                    // cookie expire in 29 days
+                    expireDate.setTime(expireDate.getTime() + (29*24*60*60*1000) )
+                    document.cookie = `authCookie=${res.user.cookie};expires${expireDate}`
+                }else{
+                    console.log("failed");
+                }
             } else {
                 console.log("failed");
             }
+        }).finally(()=>{
+            document.location.assign("/home")
         })
     }
 

@@ -42,7 +42,7 @@ export async function addCookieForUser(userId: number, cookie: string): Promise<
                 }
             )
         }catch(err){
-            reject("Database error in cookieRepo addCookieForUser")
+            reject("Database error in cookieRepo addCookieForUser: " + err)
         }
         con.end();
     });
@@ -50,3 +50,34 @@ export async function addCookieForUser(userId: number, cookie: string): Promise<
     return promise;
 }
 
+export async function getUserFromCookie(cookie: string): Promise<User | null> {
+    const promise = new Promise<User | null>((resolve, reject) => {
+        const con = mysql.createConnection({
+            host: "mysql-158ed1ed-plieax.a.aivencloud.com",
+            user: "avnadmin",
+            password: dbPassword.dbPassword,
+            port: 27481,
+            database: "theworks"
+        });
+
+        try{
+            con.query<User[]>(
+                "select * from nodeUser where idnodeUser = (select fkNodeUserId from nodeCookies where cookieValue = ?)",
+                [cookie],
+                (_err, result: User[]) => {
+                    if (!_err?.errno){
+                        result[0].cookie = cookie;
+                        resolve(result[0]);
+                    }else{
+                        reject("Database error in cookieRepo getUserFromCookie: " + _err.message);
+                    }
+                }
+            );
+        }catch(err){
+            reject("Database error in cookieRepo getUserFromCookie: " + err)
+        }
+        con.end
+    });
+
+    return promise;
+}

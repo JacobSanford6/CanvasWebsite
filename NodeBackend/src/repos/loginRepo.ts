@@ -27,7 +27,7 @@ export async function getUserFromCredentials(username: string, password: string)
                 "select idnodeUser, username, password, age from nodeUser where username= ? and password= ? limit 1",
                 [username, password],
                 (_err, result: User[]) => {
-                    if (result.length > 0){
+                    if (result && result.length > 0){
                         user = result[0];
                         let newCookie: string = result[0].username + " " + randomInt(0, 9999999999).toString() +randomInt(1000000000, 9999999999).toString() + randomInt(1000000000, 9999999999).toString() + randomInt(1000000000, 9999999999).toString();
                         
