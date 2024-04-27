@@ -15,8 +15,6 @@ interface Props {
   testNumber: number;
 }
 
-
-
 export function ClassesHome() {
   return (
     <>
@@ -32,12 +30,9 @@ export function ClassesGrades() {
   // get classes
   useEffect(() => {
     async function exec() {
-      
       await makeRequest("courses", [["include", "total_scores"], ["enrollment_state", "active"], ["per_page", "1000"]]).then(res => {
         setData(res as Course[]);
-        console.log(data)
       })
-
     }
     exec()
   }, [])
@@ -72,7 +67,6 @@ export function ClassesGrades() {
       <div id='classes'>
         {listItems}
       </div>
-
     </>
   )
 }

@@ -65,11 +65,11 @@ export async function getUserFromCookie(cookie: string): Promise<User | null> {
                 "select * from nodeUser where idnodeUser = (select fkNodeUserId from nodeCookies where cookieValue = ?)",
                 [cookie],
                 (_err, result: User[]) => {
-                    if (!_err?.errno){
+                    if (!_err?.errno && result.length > 0){
                         result[0].cookie = cookie;
                         resolve(result[0]);
                     }else{
-                        reject("Database error in cookieRepo getUserFromCookie: " + _err.message);
+                        reject("Database error in cookieRepo getUserFromCookie: " + _err);
                     }
                 }
             );

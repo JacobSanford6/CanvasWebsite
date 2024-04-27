@@ -18,8 +18,6 @@ const PageLayout = (layoutProps: layoutProps) => {
 
             <div style={{ minHeight: 'calc(90vh - 9.5rem)' }}>
                 {layoutProps.children}
-
-
             </div>
 
             <div id="footer">

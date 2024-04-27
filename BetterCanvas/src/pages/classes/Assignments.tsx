@@ -16,9 +16,7 @@ export function AssignmentsClass() {
         async function exec(){
             await makeRequest("courses/" + id + "/assignments", [["per_page", "1000"], ["bucket", "upcoming"],["order_by", "due_at"]]).then(res =>{
                 setAssignments(res as Assignment[])
-                
             })
-            
             setIsBusy(false);
         }
         exec();
@@ -42,11 +40,9 @@ export function AssignmentsClass() {
     return (
         <div>
             {isBusy ? <p>Loading...</p> :
-            
             <div>
                 {listItems}
             </div>
-            
             }
         </div>
     )
@@ -68,8 +64,6 @@ export function AssignmentsAssignment() {
         }
         exec();
         setBusy(false);
-
-        console.log(assignment?.name)
     }, []);
 
     return(

@@ -13,8 +13,6 @@ function generateUrl(path: string, params?: [string, string][]): string{
 
 export async function makeRequest(path: string, params?: [string, string][]): Promise<Object[]> {
     const requestUrl = generateUrl(path, params);
-
-    console.log(requestUrl)
     const promise: Promise<Object[]> = new Promise((resolve, reject) => {
         axios.get(requestUrl,
             {
@@ -25,7 +23,6 @@ export async function makeRequest(path: string, params?: [string, string][]): Pr
         ).then(res => {
             resolve(res.data);
         }).catch(e => {
-            console.error(e)
             reject("Api Request Failed")
         })
     });

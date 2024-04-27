@@ -10,7 +10,6 @@ import { useCookies } from 'react-cookie'
 import { tryCookie } from '../api/UserServices'
 import ForceLoginPage from '../pages/forceLogin'
 
-
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['authCookie']);
   const [auth, setAuth] = useState<boolean>(false);
@@ -21,8 +20,6 @@ function App() {
           
           tryCookie(cookies?.authCookie)
           .then(res =>{
-
-            console.log("real auth: " + res.success)
             setHasRun(true);
             if (res.success){
               setAuth(true);
@@ -32,15 +29,12 @@ function App() {
           .catch(err =>{
             setHasRun(true);
           }).finally(() =>{
-            console.log("finally...")
             setHasRun(true)
           })
           
       } 
       
   }, [])
-
-  //console.log("Auth: " + auth);
 
     return (
 
@@ -82,43 +76,6 @@ function App() {
           </>
        }
       </>
-
-/*
-        <>
-        {!hasRun ?
-          <p>Loading...</p>
-          
-          :
-          
-          <>
-          {auth ?
-            /* 
-            
-            
-            <>
-            <p>test</p>
-            </>
-              :
-    
-          <PageLayout>
-            <BrowserRouter>
-              <Routes>
-                <Route path='/*' element={<ForceLoginPage />} />
-                <Route path='/login' element={<LoginPage />} />
-                <Route path='/backendApi' element={<></>} />
-              </Routes>
-            </BrowserRouter>
-          </PageLayout >
-    
-            }
-
-
-        
-        </>
-        
-      </>
-      
-    } */
     ) 
   }
 
